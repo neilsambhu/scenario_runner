@@ -10,6 +10,7 @@ git checkout -b NeilBranch0
 git branch
 ```
 Maybe:
+
 	Useful when pushing a new branch, this creates an upstream tracking branch with a lasting relationship to your local branch:
 	```
 	git push -u origin [branch]: 
