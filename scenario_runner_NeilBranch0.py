@@ -298,20 +298,18 @@ class ScenarioRunner(object):
         with open(file_name, 'w', encoding='utf-8') as fp:
             json.dump(criteria_dict, fp, sort_keys=False, indent=4)
 
-    def adversarial_textures(self, bVerbose):
-        # Get names of all available objects
-        object_names = self.world.get_names_of_all_objects()
-        # for name in object_names:
-        #     print(name)
-        # Choose an object to modify # For example target_object could be 'SM_Cartel_Add_5' 
-        import random
-        target_object = random.choice(object_names)
+    def background(f):
+        import asyncio
+        def wrapped(*args, **kwargs):
+            return asyncio.get_event_loop().run_in_executor(None, f, *args, **kwargs)
+        return wrapped
+    # @background
+    def adversarial_textures_on_object(self, target_object):
         print('Altering texture for object: ' + target_object)
         # Modify its texture 
         import cv2
         image = cv2.imread('textures/colorful_cat.jpeg')
-        if bVerbose:
-            print('image.shape',image.shape)
+        # print('image.shape',image.shape)
         height,width,_ = image.shape
         texture = carla.TextureColor(width,height)
         for x in range(0,len(image[0])):
@@ -323,7 +321,42 @@ class ScenarioRunner(object):
                 # a = int(color[3])
                 a = int(0)
                 texture.set(x, height - y - 1, carla.Color(r,g,b,a))
-        self.world.apply_color_texture_to_object(target_object, carla.MaterialParameter.Diffuse, texture, 0)
+        # self.world.apply_color_texture_to_object(target_object, carla.MaterialParameter.Diffuse, texture, 0)
+        self.world.apply_color_texture_to_object(target_object, carla.MaterialParameter.Diffuse, texture)
+        return 1
+    def adversarial_textures(self, bVerbose):
+        # Get names of all available objects
+        object_names = self.world.get_names_of_all_objects()
+        if bVerbose:
+            print('len(object_names)',len(object_names))
+        # for name in object_names:
+        #     print(name)
+        # Choose an object to modify # For example target_object could be 'SM_Cartel_Add_5' 
+        import random
+        # target_object = random.choice(object_names)
+        random.shuffle(object_names)
+        
+        # serial for loop
+        from tqdm import tqdm
+        lFunctionCalls = 0
+        lObjectNamesToModify = len(object_names)//2
+        for i in tqdm(range(lObjectNamesToModify)):
+            self.adversarial_textures_on_object(object_names[i])
+            # lFunctionCalls = lFunctionCalls + int(self.adversarial_textures_on_object(object_names[i]))
+        # while True:
+        #     if lFunctionCalls < lObjectNamesToModify:
+        #         print(f"{lFunctionCalls} of {lObjectNamesToModify} objects modified")
+        #         time.sleep(5)
+        
+        # # parallel for loop
+        # from joblib import Parallel, delayed
+        # results = Parallel(n_jobs=2)(delayed(self.adversarial_textures_on_object)(object_names[i]) for i in range(len(object_names)//2))
+        # print(results)
+        
+        # parallel for loop 2
+        # pool = multiprocessing.Pool(4)
+        # out1, out2, out3 = zip(*pool.map(self.adversarial_textures_on_object(, range(0, 10 * offset, offset)))
+        
     def _load_and_wait_for_world(self, town, ego_vehicles=None):
         """
         Load a new CARLA world and provide data to CarlaDataProvider

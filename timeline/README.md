@@ -99,3 +99,26 @@ did not match C++ signature:
     apply_color_texture_to_object(carla::client::World {lvalue}, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > object_name, carla::rpc::MaterialParameter material_parameter, carla::rpc::Texture<carla::sensor::data::Color> texture)
 ```
 4/16/2022 11:04:41 PM: change "a" to use int constructor; same error.
+
+4/17/2022 12:54:11 AM: removed 4th parameter ("0") from apply_color_texture_to_object
+```
+(carla-test) nsambhu@SAMBHU19:~/github/scenario_runner$ python scenario_runner_NeilBranch0.py --scenario FollowLeadingVehicle_1 --record records --reloadWorld
+scenario_runner_NeilBranch0.py:94: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(dist.version) < LooseVersion('0.9.12'):
+Neil got here 1
+Altering texture for object: SpeedLimiter36_3644
+image.shape (233, 216, 3)
+Neil left here 1
+Preparing scenario: FollowLeadingVehicle_1
+ScenarioManager: Running scenario FollowVehicle
+Not all scenario tests were successful
+Please run with --output for further information
+Destroying ego vehicle 2465
+ERROR: failed to destroy actor 2465 : unable to destroy actor: not found 
+No more scenarios .... Exiting
+```
+4/17/2022 12:55:02 AM: I am going to try to change the textures of more items in the world.
+
+4/17/2022 12:56:57 AM: len(object_names) 3837
+
+4/17/2022 1:35:33 AM: changed half objects to rainbow cat texture. Changing the texture takes about 4 minutes; I tried to parallelize, but the scenario stops before all the called objects change textures. Serial shows all called objects as changed.
