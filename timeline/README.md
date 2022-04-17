@@ -47,3 +47,19 @@ origin	https://github.com/carla-simulator/scenario_runner.git (push)
 ```
 git commit -a -m "update timeline"&&git push neil_scenario_runner NeilBranch0 
 ```
+4/16/2022 9:45:28 PM: re-run distance_between_vehicles.py
+```
+(carla-test) nsambhu@SAMBHU19:~/github/scenario_runner$ python scenario_runner.py --scenario FollowLeadingVehicle_1 --record records --reloadWorld
+scenario_runner.py:94: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(dist.version) < LooseVersion('0.9.12'):
+Preparing scenario: FollowLeadingVehicle_1
+ScenarioManager: Running scenario FollowVehicle
+All scenario tests were passed successfully!
+Destroying ego vehicle 554
+ERROR: failed to destroy actor 554 : unable to destroy actor: not found 
+No more scenarios .... Exiting
+```
+```
+(carla-test) nsambhu@SAMBHU19:~/github/scenario_runner$ python metrics_manager.py --log records/FollowLeadingVehicle_1.log --criteria records/FollowLeadingVehicle_1.json --metric srunner/metrics/examples/distance_between_vehicles.py
+```
+Output image stored at /home/nsambhu/github/scenario_runner/srunner/metrics/data/DistanceBetweenVehicles.png
