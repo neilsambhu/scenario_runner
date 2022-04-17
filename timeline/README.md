@@ -63,7 +63,9 @@ No more scenarios .... Exiting
 (carla-test) nsambhu@SAMBHU19:~/github/scenario_runner$ python metrics_manager.py --log records/FollowLeadingVehicle_1.log --criteria records/FollowLeadingVehicle_1.json --metric srunner/metrics/examples/distance_between_vehicles.py
 ```
 Output image stored at /home/nsambhu/github/scenario_runner/srunner/metrics/data/DistanceBetweenVehicles.png and https://github.com/neilsambhu/scenario_runner/blob/NeilBranch0/srunner/metrics/data/DistanceBetweenVehicles.png.
+
 Absolute:
 ![](https://github.com/neilsambhu/scenario_runner/blob/NeilBranch0/srunner/metrics/data/DistanceBetweenVehicles.png)
+
 Relative:
 ![](../srunner/metrics/data/DistanceBetweenVehicles.png)
