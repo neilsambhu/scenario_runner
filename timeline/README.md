@@ -65,7 +65,9 @@ No more scenarios .... Exiting
 Output image stored at /home/nsambhu/github/scenario_runner/srunner/metrics/data/DistanceBetweenVehicles.png and https://github.com/neilsambhu/scenario_runner/blob/NeilBranch0/srunner/metrics/data/DistanceBetweenVehicles.png.
 
 Absolute:
+
 ![](https://github.com/neilsambhu/scenario_runner/blob/NeilBranch0/srunner/metrics/data/DistanceBetweenVehicles.png)
 
 Relative:
+
 ![](../srunner/metrics/data/DistanceBetweenVehicles.png)
